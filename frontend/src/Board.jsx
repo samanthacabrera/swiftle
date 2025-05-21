@@ -22,6 +22,15 @@ const allsongs = [
   { song: "Tolerate It", album: "Evermore" },
 ];
 
+const shuffleArray = (array) => {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+};
+
 const Board = () => {
   const [songs, setSongs] = useState(allsongs);
   const [selected, setSelected] = useState([]);
@@ -57,19 +66,24 @@ const Board = () => {
     }
   };
 
+  const handleShuffle = () => {
+    setSongs(shuffleArray(songs));
+  };
+
+  const handleDeselect = () => {
+    setSelected([]);
+    setError("");
+  };
+
   return (
     <div className="p-4 max-w-2xl mx-auto text-center">
-      <p className="my-12">Group the songs by album</p>
+      <p className="my-12">Create four groups of four!</p>
 
       {groups.length > 0 && (
         <div className="mb-6">
           {groups.map((group, index) => (
-            <div
-              key={index}
-              className="mb-2 p-2"
-            >
-              {group.album}:{" "}
-              {group.songs.map((s) => `${s.song}`).join(", ")}
+            <div key={index} className="mb-2 p-2">
+              {group.album}: {group.songs.map((s) => s.song).join(", ")}
             </div>
           ))}
         </div>
@@ -80,25 +94,40 @@ const Board = () => {
           <button
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
-            className={`p-2 text-xs rounded border transition ${
-              selected.includes(songObj)
-                ? "bg-pink-500 text-white border-pink-600"
-                : "bg-white text-black border-gray-300 hover:bg-gray-100"
-            }`}
+            className={`h-24 w-full sm:h-24 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none py-6 px-2 text-xs transition z-0
+              ${
+                selected.includes(songObj)
+                  ? "bg-pink-500 text-white border-pink-600"
+                  : "bg-pink-50 text-black border border-pink-100 hover:bg-pink-100"
+              }`}
           >
             {songObj.song}
           </button>
         ))}
       </div>
 
-      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+      {error && <p className="my-4">{error}</p>}
 
-      <button
-        onClick={handleSubmitGroup}
-        className="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition"
-      >
-        Submit Group
-      </button>
+      <div className="flex flex-wrap gap-2 justify-center my-12">
+        <button
+          onClick={handleShuffle}
+          className="py-2 px-4 rounded-full border border-black"
+        >
+          Shuffle
+        </button>
+        <button
+          onClick={handleDeselect}
+          className="py-2 px-4 rounded-full border border-black"
+        >
+          Deselect All
+        </button>
+        <button
+          onClick={handleSubmitGroup}
+          className="py-2 px-4 rounded-full border border-black"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 };
