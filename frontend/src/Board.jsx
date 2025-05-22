@@ -113,8 +113,11 @@ const Board = () => {
         ))}
       </div>
 
-      <p className="my-4">
-        Mistakes Remaining: {maxMistakes - mistakes}
+      <p className="my-8">
+        Mistakes Remaining:{" "}
+        <span className="text-4xl tracking-widest ml-4">
+          {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
+        </span>
       </p>
 
       {gameOver && (
