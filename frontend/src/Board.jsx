@@ -36,6 +36,8 @@ const Board = () => {
   const [selected, setSelected] = useState([]);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState("");
+  const [mistakes, setMistakes] = useState(0);
+  const maxMistakes = 4;
 
   const toggleSelect = (songObj) => {
     const isSelected = selected.includes(songObj);
@@ -62,7 +64,9 @@ const Board = () => {
       setSongs(songs.filter((s) => !selected.includes(s)));
       setSelected([]);
     } else {
+      setMistakes((prev) => prev + 1);
       setError("These songs are not from the same album. Try again!");
+      setSelected([]);
     }
   };
 
@@ -74,6 +78,8 @@ const Board = () => {
     setSelected([]);
     setError("");
   };
+
+  const gameOver = mistakes >= maxMistakes;
 
   return (
     <div className="p-4 max-w-2xl mx-auto text-center">
@@ -94,35 +100,49 @@ const Board = () => {
           <button
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
+            disabled={gameOver}
             className={`h-24 w-full sm:h-24 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none py-6 px-2 text-xs transition z-0
               ${
                 selected.includes(songObj)
                   ? "bg-pink-500 text-white border-pink-600"
                   : "bg-pink-50 text-black border border-pink-100 hover:bg-pink-100"
-              }`}
+              } ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {songObj.song}
           </button>
         ))}
       </div>
 
-      {error && <p className="my-4">{error}</p>}
+      <p className="my-4">
+        Mistakes Remaining: {maxMistakes - mistakes}
+      </p>
+
+      {gameOver && (
+        <div className="my-4 text-red-500">
+          You've reached the maximum number of mistakes. Game over!
+        </div>
+      )}
+
+      {error && <p className="my-4 text-red-500">{error}</p>}
 
       <div className="flex flex-wrap gap-2 justify-center my-12">
         <button
           onClick={handleShuffle}
+          disabled={gameOver}
           className="py-2 px-4 rounded-full border border-black"
         >
           Shuffle
         </button>
         <button
           onClick={handleDeselect}
+          disabled={gameOver}
           className="py-2 px-4 rounded-full border border-black"
         >
           Deselect All
         </button>
         <button
           onClick={handleSubmitGroup}
+          disabled={gameOver}
           className="py-2 px-4 rounded-full border border-black"
         >
           Submit
