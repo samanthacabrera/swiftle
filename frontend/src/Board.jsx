@@ -1,26 +1,5 @@
-import React, { useState } from "react";
-
-const allsongs = [
-  { song: "Red", album: "Red" },
-  { song: "All Too Well", album: "Red" },
-  { song: "I Knew You Were Trouble", album: "Red" },
-  { song: "22", album: "Red" },
-
-  { song: "Delicate", album: "Reputation" },
-  { song: "Look What You Made Me Do", album: "Reputation" },
-  { song: "…Ready For It?", album: "Reputation" },
-  { song: "The Archer", album: "Reputation" },
-
-  { song: "You Belong With Me", album: "Fearless" },
-  { song: "Love Story", album: "Fearless" },
-  { song: "Fifteen", album: "Fearless" },
-  { song: "White Horse", album: "Fearless" },
-
-  { song: "Willow", album: "Evermore" },
-  { song: "Champagne Problems", album: "Evermore" },
-  { song: "Gold Rush", album: "Evermore" },
-  { song: "Tolerate It", album: "Evermore" },
-];
+import { useState } from "react";
+import allsongs from "./songs";
 
 const shuffleArray = (array) => {
   const newArray = [...array];
