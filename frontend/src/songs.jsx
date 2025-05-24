@@ -28,6 +28,25 @@ const allsongs = [
   { song: "Forever & Always", album: "Fearless" },
   { song: "The Best Day", album: "Fearless" },
   { song: "Change", album: "Fearless" },
+  // Speak Now
+  { song: "Mine", album: "Speak Now" },
+  { song: "Sparks Fly", album: "Speak Now" },
+  { song: "Back to December", album: "Speak Now" },
+  { song: "Dear John", album: "Speak Now" },
+  { song: "Mean", album: "Speak Now" },
+  { song: "The Story of Us", album: "Speak Now" },
+  { song: "Enchanted", album: "Speak Now" },
+  { song: "Haunted", album: "Speak Now" },
+  // Red
+  { song: "State of Grace", album: "Red" },
+  { song: "Red", album: "Red" },
+  { song: "Treacherous", album: "Red" },
+  { song: "I Knew You Were Trouble", album: "Red" },
+  { song: "All Too Well", album: "Red" },
+  { song: "22", album: "Red" },
+  { song: "We Are Never Ever Getting Back Together", album: "Red" },
+  { song: "Begin Again", album: "Red" },
+
 ];
 
 export default allsongs;

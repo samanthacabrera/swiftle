@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import allsongs from "./songs";
 
 const shuffleArray = (array) => {
@@ -10,13 +10,43 @@ const shuffleArray = (array) => {
   return newArray;
 };
 
+const getInitialSongs = () => {
+  // group songs by album
+  const albumMap = {};
+  allsongs.forEach((song) => {
+    if (!albumMap[song.album]) {
+      albumMap[song.album] = [];
+    }
+    albumMap[song.album].push(song);
+  });
+
+  // filter albums with at least 4 songs
+  const validAlbums = Object.entries(albumMap).filter(
+    ([_, songs]) => songs.length >= 4
+  );
+
+  // shuffle and select 4 albums
+  const shuffledAlbums = shuffleArray(validAlbums).slice(0, 4);
+
+  // select 4 songs from each chosen album
+  const selectedSongs = shuffledAlbums.flatMap(([_, songs]) =>
+    shuffleArray(songs).slice(0, 4)
+  );
+
+  return shuffleArray(selectedSongs);
+};
+
 const Board = () => {
-  const [songs, setSongs] = useState(allsongs);
+  const [songs, setSongs] = useState([]);
   const [selected, setSelected] = useState([]);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState("");
   const [mistakes, setMistakes] = useState(0);
   const maxMistakes = 4;
+
+  useEffect(() => {
+    setSongs(getInitialSongs());
+  }, []);
 
   const toggleSelect = (songObj) => {
     const isSelected = selected.includes(songObj);
