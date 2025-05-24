@@ -36,6 +36,15 @@ const getInitialSongs = () => {
   return shuffleArray(selectedSongs);
 };
 
+const handleRestart = () => {
+  setSongs(getInitialSongs());
+  setSelected([]);
+  setGroups([]);
+  setError("");
+  setMistakes(0);
+};
+
+
 const Board = () => {
   const [songs, setSongs] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -160,6 +169,18 @@ const Board = () => {
           Submit
         </button>
       </div>
+
+      {gameOver && (
+        <div className="my-4 text-red-500">
+          <p>You've reached the maximum number of mistakes. Game over!</p>
+          <button
+            onClick={handleRestart}
+            className="mt-4 py-2 px-4 rounded-full border border-black text-black"
+          >
+            Restart Game
+          </button>
+        </div>
+        )}
     </div>
   );
 };
