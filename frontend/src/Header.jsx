@@ -1,19 +1,58 @@
 import React, { useState } from "react";
 
 const Header = () => {
+    const [showDropdown, setShowDropdown] = useState(false);
     const [showModal, setShowModal] = useState(false);
-
+    
     return (
         <>
-            <div className="flex items-center w-screen h-[10vh] border-b border-black font-bold relative">
+            <div className="flex items-center w-screen h-[10vh] border-b font-bold relative">
                 <h1 className="text-4xl ml-4">Swiftle</h1>
-                <button
-                    onClick={() => setShowModal(true)}
-                    className="absolute right-4 border-2 border-black rounded-full px-2"
-                    aria-label="How to Play"
-                >
-                    ?
-                </button>
+                <div className="absolute right-4">
+                    <button
+                        onClick={() => setShowDropdown((prev) => !prev)} 
+                        className="border-2 border-black rounded-full px-2"
+                        aria-label="Options"
+                    >
+                        ?
+                    </button>
+                    {showDropdown && (
+                        <div className="absolute right-0 mt-6 w-40 bg-white z-10 font-normal">
+                            <button
+                                onClick={() => {
+                                    setShowModal(true);
+                                    setShowDropdown(false); 
+                                }}
+                                className="block w-full text-left border px-4 py-2 hover:bg-gray-100"
+                            >
+                                How to Play
+                            </button>
+                            <a
+                                href="mailto:samantha.n.cabrera@gmail.com"
+                                onClick={() => setShowDropdown(false)}
+                                className="block w-full text-left border px-4 py-2 hover:bg-gray-100 relative"
+                            >
+                                Feedback
+                                <span className="absolute right-4">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-4 w-3 inline"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M5 19L19 5M5 5h14v14"
+                                        />
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {showModal && (
