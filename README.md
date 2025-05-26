@@ -5,7 +5,6 @@
 ```bash
   git clone https://github.com/samanthacabrera/swiftle.git
   cd swiftle
-  cd frontend
   npm install
   npm run dev
 ```
