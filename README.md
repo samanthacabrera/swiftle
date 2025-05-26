@@ -1,6 +1,12 @@
-### Swiftle: A game inspired by The New York Times mini game, Connections, and a love for Taylor Swift songs
+## Swiftle
 
-### Installation
+#### A game inspired by a love of Taylor Swift songs & NYT's mini game, Connections
+
+Play online at https://samanthacabrera.github.io/swiftle
+
+or
+
+Install & run locally:
 
 ```bash
   git clone https://github.com/samanthacabrera/swiftle.git
@@ -9,4 +15,4 @@
   npm run dev
 ```
 
-Visit http://localhost:5173 in your browser to access swiftle.
+Visit http://localhost:5173 in your browser to access the game.
