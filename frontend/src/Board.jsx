@@ -146,7 +146,7 @@ const Board = () => {
 
       {error && <p className="my-4 text-red-500">{error}</p>}
 
-      <div className="flex flex-wrap gap-2 justify-center my-12">
+      <div className="flex flex-wrap gap-2 justify-center my-6">
         <button
           onClick={handleShuffle}
           disabled={gameOver}
