@@ -101,13 +101,21 @@ const Board = () => {
 
   return (
     <div className="p-4 max-w-2xl mx-auto text-center">
-      <p className="my-12">Create four groups of four!</p>
+      <p className="font-semibold my-12">Create four groups of four!</p>
 
       {groups.length > 0 && (
-        <div className="mb-6">
+        <div className="mb-6 grid gap-4 sm:grid-cols-2">
           {groups.map((group, index) => (
-            <div key={index} className="mb-2 p-2">
-              {group.album}: {group.songs.map((s) => s.song).join(", ")}
+            <div
+              key={index}
+              className="border border-pink-300 rounded-lg p-4 shadow-sm bg-pink-50"
+            >
+              <p className="font-semibold text-pink-600 mb-2">{group.album}</p>
+              <ul className="text-sm text-left">
+                {group.songs.map((s, i) => (
+                  <li key={i}>{s.song}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
