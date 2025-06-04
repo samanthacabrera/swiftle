@@ -51,6 +51,8 @@ const Board = () => {
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState("");
   const [mistakes, setMistakes] = useState(0);
+  const [almostDone, setAlmostDone] = useState(false);
+
   const maxMistakes = 4;
 
   useEffect(() => {
@@ -68,25 +70,42 @@ const Board = () => {
   };
 
   const handleSubmitGroup = () => {
+    setAlmostDone(false);
+  
     if (selected.length !== 4) {
       setError("Select exactly 4 songs.");
       return;
     }
-
-    const allSameAlbum = selected.every(
-      (item) => item.album === selected[0].album
-    );
-
-    if (allSameAlbum) {
-      setGroups([...groups, { album: selected[0].album, songs: selected }]);
+  
+    const albumCounts = {};
+    selected.forEach((song) => {
+      albumCounts[song.album] = (albumCounts[song.album] || 0) + 1;
+    });
+  
+    const mostCommonAlbum = Object.entries(albumCounts).sort((a, b) => b[1] - a[1])[0];
+  
+    if (mostCommonAlbum[1] === 4) {
+      const newGroups = [...groups, { album: selected[0].album, songs: selected }];
+      setGroups(newGroups);
       setSongs(songs.filter((s) => !selected.includes(s)));
       setSelected([]);
+      setError("");
+  
+      if (newGroups.length === 3) {
+        setAlmostDone(true);
+      }
+    } else if (mostCommonAlbum[1] === 3) {
+      setMistakes((prev) => prev + 1); 
+      setAlmostDone(true);
+      setError("You're so close! 3 out of 4 songs are from the same album.");
+      setSelected([]);    
     } else {
       setMistakes((prev) => prev + 1);
       setError("These songs are not from the same album. Try again!");
       setSelected([]);
     }
   };
+  
 
   const handleShuffle = () => {
     setSongs(shuffleArray(songs));
@@ -153,6 +172,7 @@ const Board = () => {
       )}
 
       {error && <p className="my-4 text-red-500">{error}</p>}
+
 
       <div className="flex flex-wrap gap-2 justify-center my-6">
         <button
