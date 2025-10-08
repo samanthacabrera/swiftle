@@ -36,22 +36,6 @@ const getInitialSongs = () => {
   return shuffleArray(selectedSongs);
 };
 
-const handleRestart = () => {
-  setSongs(getInitialSongs());
-  setSelected([]);
-  setGroups([]);
-  setError("");
-  setMistakes(0);
-  setTime(0);
-  setGameWon(false);
-  
-  if (timerRef.current) clearInterval(timerRef.current);
-  timerRef.current = setInterval(() => {
-    setTime((prev) => prev + 1);
-  }, 1000);
-};
-
-
 const Board = () => {
   const [songs, setSongs] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -62,8 +46,8 @@ const Board = () => {
   const [time, setTime] = useState(0); 
   const timerRef = useRef(null);
   const [gameWon, setGameWon] = useState(false);
-
   const maxMistakes = 4;
+  const gameOver = mistakes >= maxMistakes;
 
   useEffect(() => {
     setSongs(getInitialSongs());
@@ -75,6 +59,12 @@ const Board = () => {
       clearInterval(timerRef.current);
     };
   }, []);
+
+  useEffect(() => {
+  if (gameOver) {
+    setError(""); 
+  }
+}, [gameOver]);
 
   const toggleSelect = (songObj) => {
     const isSelected = selected.includes(songObj);
@@ -128,15 +118,28 @@ const Board = () => {
   };
   
   const handleShuffle = () => {
-    setSongs(shuffleArray(songs));
-  };
+      setSongs(shuffleArray(songs));
+    };
 
-  const handleDeselect = () => {
+    const handleDeselect = () => {
+      setSelected([]);
+      setError("");
+    };
+
+    const handleRestart = () => {
+    setSongs(getInitialSongs());
     setSelected([]);
+    setGroups([]);
     setError("");
+    setMistakes(0);
+    setTime(0);
+    setGameWon(false);
+    
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setTime((prev) => prev + 1);
+    }, 1000);
   };
-
-  const gameOver = mistakes >= maxMistakes;
 
   return (
     <div className="p-4 max-w-2xl mx-auto text-center">
@@ -185,7 +188,7 @@ const Board = () => {
       )}
 
       {!gameWon && (
-        <p className="">
+        <p>
           Mistakes Remaining:{" "}
           <span className="text-4xl tracking-widest ml-4">
             {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
@@ -193,7 +196,7 @@ const Board = () => {
         </p>
       )}
 
-      {error && <p className="my-4 text-red-500">{error}</p>}
+      {error && <p className="my-4 text-pink-500">{error}</p>}
 
       <div className="flex flex-wrap gap-2 justify-center my-6">
         {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Shuffle</button>}
@@ -202,11 +205,11 @@ const Board = () => {
       </div>
 
       {gameOver && (
-        <div className="my-4 text-red-500">
-          <p>You've reached the maximum number of mistakes. Game over!</p>
+        <div className="my-4 p-4 text-white bg-pink-500/80 rounded-lg">
+          <p className="text-lg">You are out of mistakes!</p>
           <button
             onClick={handleRestart}
-            className="mt-4 py-2 px-4 rounded-full border border-black text-black"
+            className="mt-4 py-2 px-4 rounded-full border"
           >
             Restart Game
           </button>
@@ -214,12 +217,12 @@ const Board = () => {
       )}
 
       {gameWon && (
-          <div className="my-4 p-4 border border-green-500 bg-green-100 rounded-lg">
-            <p className="font-semibold text-green-700 text-lg">Congratulations! 🎉</p>
-            <p>You completed all groups in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
+          <div className="my-4 p-4 text-white bg-pink-500/80 rounded-lg">
+            <p className="text-lg">Congratulations!</p>
+            <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button
               onClick={handleRestart}
-              className="mt-4 py-2 px-4 rounded-full border border-black text-black"
+              className="mt-4 py-2 px-4 rounded-full border"
             >
               Play Again
             </button>
