@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import allsongs from "./songs";
 
 const shuffleArray = (array) => {
@@ -42,6 +42,13 @@ const handleRestart = () => {
   setGroups([]);
   setError("");
   setMistakes(0);
+  setTime(0);
+  setGameWon(false);
+  
+  if (timerRef.current) clearInterval(timerRef.current);
+  timerRef.current = setInterval(() => {
+    setTime((prev) => prev + 1);
+  }, 1000);
 };
 
 
@@ -52,11 +59,21 @@ const Board = () => {
   const [error, setError] = useState("");
   const [mistakes, setMistakes] = useState(0);
   const [almostDone, setAlmostDone] = useState(false);
+  const [time, setTime] = useState(0); 
+  const timerRef = useRef(null);
+  const [gameWon, setGameWon] = useState(false);
 
   const maxMistakes = 4;
 
   useEffect(() => {
     setSongs(getInitialSongs());
+    // start timer
+    timerRef.current = setInterval(() => {
+      setTime((prev) => prev + 1);
+    }, 1000);
+    return () => {
+      clearInterval(timerRef.current);
+    };
   }, []);
 
   const toggleSelect = (songObj) => {
@@ -85,15 +102,19 @@ const Board = () => {
     const mostCommonAlbum = Object.entries(albumCounts).sort((a, b) => b[1] - a[1])[0];
   
     if (mostCommonAlbum[1] === 4) {
-      const newGroups = [...groups, { album: selected[0].album, songs: selected }];
-      setGroups(newGroups);
-      setSongs(songs.filter((s) => !selected.includes(s)));
-      setSelected([]);
-      setError("");
-  
-      if (newGroups.length === 3) {
-        setAlmostDone(true);
-      }
+    const newGroups = [...groups, { album: selected[0].album, songs: selected }];
+    setGroups(newGroups);
+    setSongs(songs.filter((s) => !selected.includes(s)));
+    setSelected([]);
+    setError("");
+
+    if (newGroups.length === 4) {
+      setGameWon(true);
+      if (timerRef.current) clearInterval(timerRef.current);
+    } else if (newGroups.length === 3) {
+      setAlmostDone(true);
+    }
+
     } else if (mostCommonAlbum[1] === 3) {
       setMistakes((prev) => prev + 1); 
       setAlmostDone(true);
@@ -106,7 +127,6 @@ const Board = () => {
     }
   };
   
-
   const handleShuffle = () => {
     setSongs(shuffleArray(songs));
   };
@@ -120,7 +140,8 @@ const Board = () => {
 
   return (
     <div className="p-4 max-w-2xl mx-auto text-center">
-      <p className="font-semibold my-12">Create four groups of four!</p>
+
+      <p className="my-8">Create four groups of four!</p>
 
       {groups.length > 0 && (
         <div className="mb-6 grid gap-4 sm:grid-cols-2">
@@ -157,45 +178,27 @@ const Board = () => {
           </button>
         ))}
       </div>
+      {!gameWon && (
+        <p className="text-right">
+          {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
+        </p>
+      )}
 
-      <p className="my-8">
-        Mistakes Remaining:{" "}
-        <span className="text-4xl tracking-widest ml-4">
-          {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
-        </span>
-      </p>
-
-      {gameOver && (
-        <div className="my-4 text-red-500">
-          You've reached the maximum number of mistakes. Game over!
-        </div>
+      {!gameWon && (
+        <p className="">
+          Mistakes Remaining:{" "}
+          <span className="text-4xl tracking-widest ml-4">
+            {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
+          </span>
+        </p>
       )}
 
       {error && <p className="my-4 text-red-500">{error}</p>}
 
-
       <div className="flex flex-wrap gap-2 justify-center my-6">
-        <button
-          onClick={handleShuffle}
-          disabled={gameOver}
-          className="py-2 px-4 rounded-full border border-black"
-        >
-          Shuffle
-        </button>
-        <button
-          onClick={handleDeselect}
-          disabled={gameOver}
-          className="py-2 px-4 rounded-full border border-black"
-        >
-          Deselect All
-        </button>
-        <button
-          onClick={handleSubmitGroup}
-          disabled={gameOver}
-          className="py-2 px-4 rounded-full border border-black"
-        >
-          Submit
-        </button>
+        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Shuffle</button>}
+        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Deselect All</button>}
+        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Submit</button>}
       </div>
 
       {gameOver && (
@@ -209,6 +212,19 @@ const Board = () => {
           </button>
         </div>
       )}
+
+      {gameWon && (
+          <div className="my-4 p-4 border border-green-500 bg-green-100 rounded-lg">
+            <p className="font-semibold text-green-700 text-lg">Congratulations! 🎉</p>
+            <p>You completed all groups in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
+            <button
+              onClick={handleRestart}
+              className="mt-4 py-2 px-4 rounded-full border border-black text-black"
+            >
+              Play Again
+            </button>
+          </div>
+        )}
       
       <p className="relative bottom-2 opacity-50 text-xs italic">inspired by NYT's <a href="https://www.nytimes.com/games/connections" target="_blank" className="hover:underline">Connections</a></p>
     </div>
