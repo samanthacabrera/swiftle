@@ -194,6 +194,19 @@ const allsongs = [
   { song: "The Smallest Man That Ever Lived", album: "THE TORTURED POETS DEPARTMENT" },
   { song: "The Alchmey", album: "THE TORTURED POETS DEPARTMENT" },
   { song: "Clara Bow", album: "THE TORTURED POETS DEPARTMENT" },
+  // The Life of a Showgirl
+  { song: "The Fate of Ophelia", album: "The Life of a Showgirl" },
+  { song: "Elizabeth Taylor", album: "The Life of a Showgirl" },
+  { song: "Opalite", album: "The Life of a Showgirl" },
+  { song: "Father Figure", album: "The Life of a Showgirl" },
+  { song: "Eldest Daughter", album: "The Life of a Showgirl" },
+  { song: "Ruin the Friendship", album: "The Life of a Showgirl" },
+  { song: "Actually Romantic", album: "The Life of a Showgirl" },
+  { song: "Wi$h Li$t", album: "The Life of a Showgirl" },
+  { song: "Wood", album: "The Life of a Showgirl" },
+  { song: "CANCELLED!", album: "The Life of a Showgirl" },
+  { song: "Honey", album: "The Life of a Showgirl" },
+  { song: "The Life of a Showgirl", album: "The Life of a Showgirl" },
 ];
 
 export default allsongs;

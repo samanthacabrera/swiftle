@@ -210,7 +210,7 @@ const Board = () => {
         </div>
       )}
       
-      <p className="absolute bottom-2 right-2 opacity-50 text-xs italic">inspired by NYT's <a href="https://www.nytimes.com/games/connections" target="_blank" className="hover:underline">Connections</a></p>
+      <p className="relative bottom-2 opacity-50 text-xs italic">inspired by NYT's <a href="https://www.nytimes.com/games/connections" target="_blank" className="hover:underline">Connections</a></p>
     </div>
   );
 };
