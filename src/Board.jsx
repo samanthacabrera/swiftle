@@ -144,7 +144,7 @@ const Board = () => {
   return (
     <div className="p-4 max-w-2xl mx-auto text-center">
 
-      <p className="my-8">Create four groups of four!</p>
+      <p className="text-lg my-8">Create four groups of four!</p>
 
       {groups.length > 0 && (
         <div className="mb-6 grid gap-4 sm:grid-cols-2">
@@ -174,7 +174,7 @@ const Board = () => {
               ${
                 selected.includes(songObj)
                   ? "bg-pink-500 text-white border-pink-600"
-                  : "bg-pink-50 text-black border border-pink-100 hover:bg-pink-100"
+                  : "bg-pink-50 text-black border border-pink-200 hover:bg-pink-200"
               } ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {songObj.song}
@@ -198,18 +198,18 @@ const Board = () => {
 
       {error && <p className="my-4 text-pink-500">{error}</p>}
 
-      <div className="flex flex-wrap gap-2 justify-center my-6">
-        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Shuffle</button>}
-        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Deselect All</button>}
-        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="py-2 px-4 rounded-full border border-black">Submit</button>}
+      <div className="flex flex-wrap gap-6 justify-center my-6">
+        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="border-2 border-black rounded-xl bg-pink-200 px-4 py-2 shadow-[2px_2px_0_0_#000] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000]">Shuffle</button>}
+        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="border-2 border-black rounded-xl bg-pink-200 px-4 py-2 shadow-[2px_2px_0_0_#000] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000]">Deselect All</button>}
+        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="border-2 border-black rounded-xl bg-pink-200 px-4 py-2 shadow-[2px_2px_0_0_#000] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000]">Submit</button>}
       </div>
 
       {gameOver && (
-        <div className="my-4 p-4 text-white bg-pink-500/80 rounded-lg">
-          <p className="text-lg">You are out of mistakes!</p>
+        <div className="my-4 p-4">
+          {/* <p className="text-lg">You are out of mistakes!</p> */}
           <button
             onClick={handleRestart}
-            className="mt-4 py-2 px-4 rounded-full border"
+            className="border-2 border-black rounded-xl bg-pink-200 px-4 py-2 shadow-[2px_2px_0_0_#000] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000]"
           >
             Restart Game
           </button>
@@ -217,12 +217,12 @@ const Board = () => {
       )}
 
       {gameWon && (
-          <div className="my-4 p-4 text-white bg-pink-500/80 rounded-lg">
+          <div className="my-4 p-4 text-white border border-pink-500 rounded-lg">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button
               onClick={handleRestart}
-              className="mt-4 py-2 px-4 rounded-full border"
+              className="border-2 border-black rounded-xl bg-pink-200 px-4 py-2 shadow-[2px_2px_0_0_#000] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000]"
             >
               Play Again
             </button>

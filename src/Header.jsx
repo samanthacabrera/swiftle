@@ -6,7 +6,7 @@ const Header = () => {
     
     return (
         <>
-            <div className="flex items-center w-screen h-[10vh] border-b font-bold relative">
+            <div className="flex items-center w-screen h-[10vh] bg-pink-100 border-b border-pink-500 font-bold relative">
                 <h1 className="text-pink-500 text-4xl ml-4">Swiftle</h1>
                 <div className="absolute right-4">
                     <button
