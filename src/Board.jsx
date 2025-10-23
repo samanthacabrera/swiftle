@@ -196,16 +196,16 @@ const Board = () => {
       {error && <p className="my-4 text-pink-500">{error}</p>}
 
       <div className="flex flex-wrap gap-6 justify-center my-6">
-        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="border-2 border-pink-600 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Shuffle</button>}
-        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="border-2 border-pink-600 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Deselect All</button>}
-        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="border-2 border-pink-600 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Submit</button>}
+        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Shuffle</button>}
+        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Deselect All</button>}
+        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Submit</button>}
       </div>
 
       {gameOver && (
         <div className="my-4 p-4">
           <button
             onClick={handleRestart}
-            className="border-2 border-pink-600 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
+            className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
           >
             Restart Game
           </button>
@@ -218,7 +218,7 @@ const Board = () => {
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button
               onClick={handleRestart}
-              className="border-2 border-pink-600 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
+              className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
             >
               Play Again
             </button>
