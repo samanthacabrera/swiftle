@@ -19,25 +19,22 @@ const getInitialSongs = () => {
     }
     albumMap[song.album].push(song);
   });
-
   // filter albums with at least 4 songs
   const validAlbums = Object.entries(albumMap).filter(
     ([_, songs]) => songs.length >= 4
   );
-
   // shuffle and select 4 albums
   const shuffledAlbums = shuffleArray(validAlbums).slice(0, 4);
-
   // select 4 songs from each chosen album
   const selectedSongs = shuffledAlbums.flatMap(([_, songs]) =>
     shuffleArray(songs).slice(0, 4)
   );
-
   return shuffleArray(selectedSongs);
 };
 
 const Board = () => {
   const [songs, setSongs] = useState([]);
+  const [initialSongs, setInitialSongs] = useState([]);
   const [selected, setSelected] = useState([]);
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState("");
@@ -50,21 +47,21 @@ const Board = () => {
   const gameOver = mistakes >= maxMistakes;
 
   useEffect(() => {
-    setSongs(getInitialSongs());
-    // start timer
+    const gameSongs = getInitialSongs();
+    setSongs(gameSongs);
+    setInitialSongs(gameSongs); 
     timerRef.current = setInterval(() => {
       setTime((prev) => prev + 1);
     }, 1000);
-    return () => {
-      clearInterval(timerRef.current);
-    };
+
+    return () => clearInterval(timerRef.current);
   }, []);
 
-  useEffect(() => {
-  if (gameOver) {
-    setError(""); 
-  }
-}, [gameOver]);
+    useEffect(() => {
+    if (gameOver) {
+      setError(""); 
+    }
+  }, [gameOver]);
 
   const toggleSelect = (songObj) => {
     const isSelected = selected.includes(songObj);
@@ -126,19 +123,31 @@ const Board = () => {
       setError("");
     };
 
-    const handleRestart = () => {
-    setSongs(getInitialSongs());
+  const handleRestart = () => {
+    const newSongs = getInitialSongs();
+    setSongs(newSongs);
+    setInitialSongs(newSongs);
     setSelected([]);
     setGroups([]);
     setError("");
     setMistakes(0);
     setTime(0);
     setGameWon(false);
-    
+
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setTime((prev) => prev + 1);
     }, 1000);
+  };
+  
+  const getAnswerGroups = () => {
+    if (!initialSongs.length) return [];
+    const albumMap = {};
+    initialSongs.forEach((song) => {
+      if (!albumMap[song.album]) albumMap[song.album] = [];
+      albumMap[song.album].push(song);
+    });
+    return Object.entries(albumMap).map(([album, songs]) => ({ album, songs }));
   };
 
   return (
@@ -201,8 +210,25 @@ const Board = () => {
         {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Submit</button>}
       </div>
 
-      {gameOver && (
+      {gameOver && !gameWon && (
         <div className="my-4 p-4">
+          <p className="text-lg text-pink-600 font-bold mb-2">Game Over!</p>
+          <p className="mb-4">Here are the correct albums:</p>
+          <div className="grid gap-4 sm:grid-cols-2 mb-4">
+            {getAnswerGroups().map((group, index) => (
+              <div
+                key={index}
+                className="border-2 border-pink-500 rounded-lg p-4 shadow-sm bg-pink-50"
+              >
+                <p className="font-semibold text-pink-600 mb-2">{group.album}</p>
+                <ul className="text-sm text-left">
+                  {group.songs.map((s, i) => (
+                    <li key={i}>{s.song}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
           <button
             onClick={handleRestart}
             className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
@@ -225,7 +251,7 @@ const Board = () => {
           </div>
         )}
       
-      <p className="fixed right-2 bottom-2 opacity-50 text-xs italic">inspired by NYT's <a href="https://www.nytimes.com/games/connections" target="_blank" className="hover:underline">Connections</a></p>
+      <p className="relative right-2 bottom-2 opacity-50 text-xs italic">inspired by NYT's <a href="https://www.nytimes.com/games/connections" target="_blank" className="hover:underline">Connections</a></p>
     </div>
   );
 };
