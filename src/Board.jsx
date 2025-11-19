@@ -60,6 +60,7 @@ const Board = () => {
     useEffect(() => {
     if (gameOver) {
       setError(""); 
+      revealRemainingGroups();
     }
   }, [gameOver]);
 
@@ -140,20 +141,33 @@ const Board = () => {
     }, 1000);
   };
   
-  const getAnswerGroups = () => {
-    if (!initialSongs.length) return [];
+  const revealRemainingGroups = () => {
+    const guessedSongs = new Set(groups.flatMap(g => g.songs.map(s => s.song)));
     const albumMap = {};
     initialSongs.forEach((song) => {
-      if (!albumMap[song.album]) albumMap[song.album] = [];
-      albumMap[song.album].push(song);
+      if (!guessedSongs.has(song.song)) {
+        if (!albumMap[song.album]) albumMap[song.album] = [];
+        albumMap[song.album].push(song);
+      }
     });
-    return Object.entries(albumMap).map(([album, songs]) => ({ album, songs }));
+    const remainingGroups = Object.entries(albumMap).map(([album, songs]) => ({
+      album,
+      songs,
+    }));
+    setGroups([...groups, ...remainingGroups]);
   };
 
   return (
     <div className="p-4 max-w-2xl mx-auto mt-16 text-center">
+      {gameOver && !gameWon && (
+        <div className="my-4 p-4">
+          <p className="text-lg text-pink-600 font-bold mb-2">Game Over!</p>
+          <p className="mb-4">Here are the correct albums:</p>
+        </div>
+      )}
+
       {groups.length > 0 && (
-        <div className="mb-6 grid gap-4 sm:grid-cols-2">
+        <div className="mb-6 grid gap-4 grid-cols-1">
           {groups.map((group, index) => (
             <div
               key={index}
@@ -167,6 +181,14 @@ const Board = () => {
               </ul>
             </div>
           ))}
+        </div>
+      )}
+
+      {gameOver && !gameWon && (
+        <div className="my-4 p-4">
+          <button onClick={handleRestart} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">
+            Restart Game
+          </button>
         </div>
       )}
 
@@ -210,34 +232,6 @@ const Board = () => {
         {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Submit</button>}
       </div>
 
-      {gameOver && !gameWon && (
-        <div className="my-4 p-4">
-          <p className="text-lg text-pink-600 font-bold mb-2">Game Over!</p>
-          <p className="mb-4">Here are the correct albums:</p>
-          <div className="grid gap-4 sm:grid-cols-2 mb-4">
-            {getAnswerGroups().map((group, index) => (
-              <div
-                key={index}
-                className="border-2 border-pink-500 rounded-lg p-4 shadow-sm bg-pink-50"
-              >
-                <p className="font-semibold text-pink-600 mb-2">{group.album}</p>
-                <ul className="text-sm text-left">
-                  {group.songs.map((s, i) => (
-                    <li key={i}>{s.song}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={handleRestart}
-            className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
-          >
-            Restart Game
-          </button>
-        </div>
-      )}
-
       {gameWon && (
           <div className="my-4 space-y-4 p-4">
             <p className="text-lg">Congratulations!</p>
@@ -250,8 +244,6 @@ const Board = () => {
             </button>
           </div>
         )}
-      
-      <p className="relative right-2 bottom-2 opacity-50 text-xs italic">inspired by NYT's <a href="https://www.nytimes.com/games/connections" target="_blank" className="hover:underline">Connections</a></p>
     </div>
   );
 };
