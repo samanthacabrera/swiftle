@@ -158,7 +158,7 @@ const Board = () => {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto mt-16 text-center">
+    <div className="p-4 max-w-2xl mx-auto mt-8 text-center">
       {gameOver && !gameWon && (
         <div className="my-4 p-4">
           <p className="text-lg text-pink-600 font-bold mb-2">Game Over!</p>
@@ -167,7 +167,7 @@ const Board = () => {
       )}
 
       {groups.length > 0 && (
-        <div className="mb-6 grid gap-4 grid-cols-1">
+        <div className="grid gap-4 grid-cols-1">
           {groups.map((group, index) => (
             <div
               key={index}
@@ -186,19 +186,19 @@ const Board = () => {
 
       {gameOver && !gameWon && (
         <div className="my-4 p-4">
-          <button onClick={handleRestart} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">
+          <button onClick={handleRestart} className="btn">
             Restart Game
           </button>
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 my-2">
         {songs.map((songObj) => (
           <button
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
             disabled={gameOver}
-            className={`h-24 w-full sm:h-24 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none py-6 px-2 text-xs transition z-0
+            className={`h-24 w-full sm:h-28 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none p-2 text-xs transition z-0
               ${
                 selected.includes(songObj)
                   ? "bg-pink-500 text-white border-pink-600"
@@ -209,6 +209,7 @@ const Board = () => {
           </button>
         ))}
       </div>
+
       {!gameWon && (
         <p className="text-right">
           {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
@@ -227,18 +228,18 @@ const Board = () => {
       {error && <p className="my-4 text-pink-500">{error}</p>}
 
       <div className="flex flex-wrap gap-6 justify-center my-6">
-        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Shuffle</button>}
-        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Deselect All</button>}
-        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]">Submit</button>}
+        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="btn">Shuffle</button>}
+        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="btn">Deselect All</button>}
+        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="btn">Submit</button>}
       </div>
 
       {gameWon && (
-          <div className="my-4 space-y-4 p-4">
+          <div className="space-y-4 p-4 mb-4">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button
               onClick={handleRestart}
-              className="border-2 border-pink-500 font-bold text-pink-600 rounded-xl bg-pink-100 px-4 py-2 shadow-[2px_2px_0_0_#ec4899] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#ec4899]"
+              className="btn"
             >
               Play Again
             </button>
