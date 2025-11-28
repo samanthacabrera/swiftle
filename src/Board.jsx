@@ -160,9 +160,9 @@ const Board = () => {
   return (
     <div className="p-4 max-w-2xl mx-auto mt-8 text-center">
       {gameOver && !gameWon && (
-        <div className="my-4 p-4">
-          <p className="text-lg text-pink-600 font-bold mb-2">Game Over!</p>
-          <p className="mb-4">Here are the correct albums:</p>
+        <div className="text-neutral-700 p-4">
+          <p className="text-lg font-bold mb-1">Game Over!</p>
+          <p className="mb-2">Here are the correct albums:</p>
         </div>
       )}
 
@@ -171,9 +171,9 @@ const Board = () => {
           {groups.map((group, index) => (
             <div
               key={index}
-              className="border-2 border-pink-500 rounded-lg p-4 shadow-sm bg-pink-50"
+              className="bg-pink-500 rounded-lg p-4 shadow-sm bg-pink-50"
             >
-              <p className="font-semibold text-pink-600 mb-2">{group.album}</p>
+              <p className="font-semibold mb-2">{group.album}</p>
               <ul className="text-sm text-left">
                 {group.songs.map((s, i) => (
                   <li key={i}>{s.song}</li>
@@ -198,11 +198,11 @@ const Board = () => {
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
             disabled={gameOver}
-            className={`h-24 w-full sm:h-28 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none p-2 text-xs transition z-0
+            className={`h-24 w-full sm:h-28 sm:w-34 border border-pink-100 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none p-2 text-xs transition z-0
               ${
                 selected.includes(songObj)
-                  ? "bg-pink-500 text-white border-pink-600"
-                  : "bg-pink-100 text-black hover:bg-pink-200"
+                  ? "bg-pink-500 text-white border border-pink-600"
+                  : "bg-pink-100 text-neutral-700 hover:bg-pink-200 hover:border-white transition"
               } ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {songObj.song}
@@ -211,21 +211,21 @@ const Board = () => {
       </div>
 
       {!gameWon && (
-        <p className="text-right">
+        <p className="text-neutral-700 text-right">
           {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
         </p>
       )}
 
       {!gameWon && (
-        <p>
+        <p className="text-neutral-700">
           Mistakes Remaining:{" "}
-          <span className="text-4xl tracking-widest ml-4">
+          <span className="text-lg tracking-widest ml-4">
             {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
           </span>
         </p>
       )}
 
-      {error && <p className="my-4 text-pink-500">{error}</p>}
+      {error && <p className="text-neutral-700 my-4">{error}</p>}
 
       <div className="flex flex-wrap gap-6 justify-center my-6">
         {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="btn">Shuffle</button>}
@@ -234,7 +234,7 @@ const Board = () => {
       </div>
 
       {gameWon && (
-          <div className="space-y-4 p-4 mb-4">
+          <div className="text-neutral-700 space-y-4 p-4 mb-4">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button

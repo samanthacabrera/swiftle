@@ -1,17 +1,17 @@
 const HowTo = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white shadow-lg p-6 max-w-md w-full relative tracking-wide rounded-xl">
+      <div className="bg-white text-neutral-600 shadow-lg p-6 max-w-md w-full relative tracking-wide rounded-xl">
 
         <button
           onClick={onClose}
-          className="absolute top-2 right-4 text-2xl font-medium hover:scale-110 transition"
+          className="absolute top-2 right-4 text-4xl text-pink-600 hover:scale-110 transition"
           aria-label="Close"
         >
           ×
         </button>
 
-        <h2 className="text-center text-2xl font-bold mb-4 text-pink-600">How to Play</h2>
+        <h2 className="text-center text-xl font-bold mb-4 text-pink-600">How to Play</h2>
 
         <p className="mb-2">
           Find groups of four songs that appear on the same Taylor Swift album.
@@ -32,7 +32,12 @@ const HowTo = ({ onClose }) => {
           <li><strong>RED</strong>: All Too Well, 22, Holy Ground, WANEGBT</li>
         </ul>
 
-        <p className="text-lg text-center text-pink-600 font-bold mt-4 mb-2">Thanks for playing!</p>
+        <p className="text-xl text-center text-pink-600 font-bold my-4">Thanks for playing!</p>
+        <div className="flex md:flex-row justify-center items-center space-x-0 md:space-x-2 text-xs opacity-80">
+          <a href="mailto:samantha.n.cabrera@gmail.com?subject=Feedback for Swiftle" target="_blank" rel="noopener noreferrer" className="hover:italic">Feedack is welcome</a>
+          <span className="px-1">|</span>
+          <a href="https://samoontha.com" target="_blank" rel="noopener noreferrer" className="hover:italic">Made by Sam Cabrera</a>
+        </div>
       </div>
     </div>
   );

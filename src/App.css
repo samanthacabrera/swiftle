@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,36 +8,43 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: Helvetica, sans-serif;
-  font-family: "Edu SA Hand", cursive;
+  font-family: "Happy Monkey", system-ui;
+  /* font-family: "Edu SA Hand", cursive; */
   letter-spacing: 1px;
-  background-color: #fdf2f8;
-}
-
-.title {
-  font-family: "Bagel Fat One", system-ui;
+  background-color: hsl(319, 85%, 90%);
+  color: whitesmoke;
+  background-color: hsl(319, 85%, 90%);
+  background-image: repeating-linear-gradient(
+      rgba(255, 44, 139, 0.5) 0px,
+      rgba(255, 255, 255, 0.5) 1px,
+      transparent 4px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #f3729f80 0px,
+      rgba(255, 255, 255, 0.5) 1px,
+      transparent 2px,
+      transparent 4px
+    );
 }
 
 .btn {
-  border: 2px solid #ec4899;
-  background-color: #fce7f3;
-  color: #ec4899;
-  font-weight: bold;
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
+  border: 1.5px solid #fdf2f8;
+  background-color: #ec4899;
+  color: #fdf2f8;
+  border-radius: 9999px;
+  padding: 0.6rem 1.5rem;
   transition: all 0.2s ease;
-  box-shadow: 2px 2px 0 0 #ec4899;
   cursor: pointer;
 }
 
 .btn:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 4px 4px 0 0 #ec4899;
+  transform: translate(0px, -4px);
 }
 
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
-  box-shadow: 2px 2px 0 0 #ec4899;
 }
