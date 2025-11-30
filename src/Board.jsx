@@ -158,7 +158,7 @@ const Board = () => {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto mt-8 text-center">
+    <div className="p-4 max-w-2xl mx-auto text-center">
       {gameOver && !gameWon && (
         <div className="text-neutral-700 p-4">
           <p className="text-lg font-bold mb-1">Game Over!</p>
@@ -171,7 +171,7 @@ const Board = () => {
           {groups.map((group, index) => (
             <div
               key={index}
-              className="bg-pink-500 rounded-lg p-4 shadow-sm bg-pink-50"
+              className="rounded-lg p-4 shadow-sm text-pink-400 bg-pink-50"
             >
               <p className="font-semibold mb-2">{group.album}</p>
               <ul className="text-sm text-left">
@@ -201,7 +201,7 @@ const Board = () => {
             className={`h-24 w-full sm:h-28 sm:w-34 border border-pink-100 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none p-2 text-xs transition z-0
               ${
                 selected.includes(songObj)
-                  ? "bg-pink-500 text-white border border-pink-600"
+                  ? "bg-pink-400 text-white border border-pink-400"
                   : "bg-pink-100 text-neutral-700 hover:bg-pink-200 hover:border-white transition"
               } ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
@@ -234,7 +234,7 @@ const Board = () => {
       </div>
 
       {gameWon && (
-          <div className="text-neutral-700 space-y-4 p-4 mb-4">
+          <div className="text-neutral-700 space-y-4 mb-4">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button

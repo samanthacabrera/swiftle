@@ -6,10 +6,10 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex items-center w-screen h-[10vh] bg-pink-500 text-pink-50 relative shadow">
-        <div className="flex flex-col md:flex-row items-center text-center space-y-1 ml-4 tracking-widest">
-          <h1 className="text-xl md:text-2xl lg:text-3xl">Swiftle<span className="invisible md:visible">:</span></h1>
-          <h6 className="text-center text-xs md:text-lg lg:text-2xl ml-2">
+      <div className="flex items-center w-screen bg-pink-400 relative">
+        <div className="flex flex-col items-center w-full  py-2 text-center space-y-1 tracking-widest">
+          <h1 className="text-xl md:text-2xl lg:text-3xl uppercase font-bold">Swiftle</h1>
+          <h6 className="text-center text-xs md:text-lg lg:text-xl ml-2">
             A game inspired by a love of Taylor Swift & NYT's{" "}
             <a
               href="https://www.nytimes.com/games/connections"
@@ -23,7 +23,7 @@ const Header = () => {
 
         <button
           onClick={() => setShowModal(true)}
-          className="relative md:fixed md:bottom-2 md:right-2 text-white text-xs md:text-md bg-pink-500 border border-pink-50 rounded-full m-1 px-2 py-1 md:px-3 md:py-2 hover:scale-105 transition"
+          className="border border-white rounded-full text-white text-xs w-6 h-6 md:text-lg md:w-8 md:h-8 mr-1 md:mr-2 hover:scale-105 transition"
           aria-label="How to Play"
         >
           ?

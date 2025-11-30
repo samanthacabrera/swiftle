@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,35 +7,34 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: "Happy Monkey", system-ui;
-  /* font-family: "Edu SA Hand", cursive; */
-  letter-spacing: 1px;
-  background-color: hsl(319, 85%, 90%);
+  font-family: "Gabarito", sans-serif;
   color: whitesmoke;
   background-color: hsl(319, 85%, 90%);
   background-image: repeating-linear-gradient(
-      rgba(255, 44, 139, 0.5) 0px,
-      rgba(255, 255, 255, 0.5) 1px,
+      rgba(238, 192, 213, 0.118) 0px,
+      rgba(255, 255, 255, 0.474) 1px,
       transparent 4px,
       transparent 2px
     ),
     repeating-linear-gradient(
       90deg,
-      #f3729f80 0px,
-      rgba(255, 255, 255, 0.5) 1px,
+      #f3729f22 0px,
+      rgba(255, 255, 255, 0.249) 1px,
       transparent 2px,
       transparent 4px
     );
 }
 
 .btn {
-  border: 1.5px solid #fdf2f8;
-  background-color: #ec4899;
-  color: #fdf2f8;
-  border-radius: 9999px;
-  padding: 0.6rem 1.5rem;
-  transition: all 0.2s ease;
-  cursor: pointer;
+  background: #fff;
+  color: #f483bd;
+  border: 2px solid #f483bd;
+  padding: 0.6rem 1.6rem;
+  border-radius: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  transition: 0.2s ease;
 }
 
 .btn:hover {
