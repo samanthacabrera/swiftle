@@ -39,6 +39,7 @@ const Board = () => {
   const [groups, setGroups] = useState([]);
   const [error, setError] = useState("");
   const [mistakes, setMistakes] = useState(0);
+  const [shake, setShake] = useState(false);
   const [almostDone, setAlmostDone] = useState(false);
   const [time, setTime] = useState(0); 
   const timerRef = useRef(null);
@@ -102,14 +103,17 @@ const Board = () => {
     } else if (newGroups.length === 3) {
       setAlmostDone(true);
     }
-
     } else if (mostCommonAlbum[1] === 3) {
-      setMistakes((prev) => prev + 1); 
+      setMistakes((prev) => prev + 1);
+      setShake(true);
+      setTimeout(() => setShake(false), 400);
       setAlmostDone(true);
       setError("You're so close! 3 out of 4 songs are from the same album.");
       setSelected([]);    
     } else {
       setMistakes((prev) => prev + 1);
+      setShake(true);
+      setTimeout(() => setShake(false), 400);
       setError("These songs are not from the same album. Try again!");
       setSelected([]);
     }
@@ -158,7 +162,7 @@ const Board = () => {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto text-center">
+    <div className={`p-4 max-w-2xl mx-auto text-center ${shake ? "board-shake" : ""}`}>
       {gameOver && !gameWon && (
         <div className="text-neutral-700 p-4">
           <p className="text-lg font-bold mb-1">Game Over!</p>
