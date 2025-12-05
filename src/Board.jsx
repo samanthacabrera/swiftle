@@ -41,6 +41,7 @@ const Board = () => {
   const [mistakes, setMistakes] = useState(0);
   const [shake, setShake] = useState(false);
   const [almostDone, setAlmostDone] = useState(false);
+  const [animateGroup, setAnimateGroup] = useState(null);
   const [time, setTime] = useState(0); 
   const timerRef = useRef(null);
   const [gameWon, setGameWon] = useState(false);
@@ -93,6 +94,7 @@ const Board = () => {
     if (mostCommonAlbum[1] === 4) {
     const newGroups = [...groups, { album: selected[0].album, songs: selected }];
     setGroups(newGroups);
+    setAnimateGroup(newGroups.length - 1);
     setSongs(songs.filter((s) => !selected.includes(s)));
     setSelected([]);
     setError("");
@@ -162,10 +164,10 @@ const Board = () => {
   };
 
   return (
-    <div className={`p-4 max-w-2xl mx-auto text-center ${shake ? "board-shake" : ""}`}>
+    <div className={`max-w-2xl mx-auto text-center p-8 ${shake ? "board-shake" : ""}`}>
       {gameOver && !gameWon && (
         <div className="text-neutral-700 p-4">
-          <p className="text-lg font-bold mb-1">Game Over!</p>
+          <p className="text-lg mb-1">Game Over!</p>
           <p className="mb-2">Here are the correct albums:</p>
         </div>
       )}
@@ -175,7 +177,7 @@ const Board = () => {
           {groups.map((group, index) => (
             <div
               key={index}
-              className="rounded-lg p-4 shadow-sm text-pink-400 bg-pink-50"
+              className={`${index === animateGroup ? "correct-appear" : "" } rounded-lg p-4 shadow-sm text-pink-400 bg-pink-50`}
             >
               <p className="font-semibold mb-2">{group.album}</p>
               <ul className="text-sm text-left">
