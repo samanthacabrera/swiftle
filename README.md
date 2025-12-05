@@ -1,6 +1,4 @@
-## Swiftle
-
-#### A game inspired by a love of Taylor Swift & NYT's Connections
+### Swiftle: A game inspired by a love of Taylor Swift & NYT's Connections
 
 Play online at https://samanthacabrera.github.io/swiftle
 

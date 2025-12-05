@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap");
 @tailwind base;
 @tailwind components;
@@ -25,24 +26,33 @@ html {
     );
 }
 
+.title {
+  font-family: "Pacifico", cursive;
+}
+
 .btn {
-  background: #fff;
-  color: #f483bd;
-  border: 2px solid #f483bd;
-  padding: 0.6rem 1.6rem;
-  border-radius: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-transform: lowercase;
-  transition: 0.2s ease;
+  background: #ffffff;
+  color: #f56ca9;
+  border: none;
+  padding: 0.75rem 1.8rem;
+  border-radius: 1.7rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 0 #f35ea280;
+  transition: all 0.2s ease;
 }
 
 .btn:hover {
-  transform: translate(0px, -4px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #f56ca9;
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 0 #f35ea280;
 }
 
 .btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  opacity: 0.45;
   transform: none;
+  box-shadow: 0 4px 0 #f35ea280;
 }

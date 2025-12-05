@@ -198,7 +198,7 @@ const Board = () => {
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
             disabled={gameOver}
-            className={`h-24 w-full sm:h-28 sm:w-34 border border-pink-100 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer font-bold uppercase select-none p-2 text-xs transition z-0
+            className={`h-24 w-full sm:h-28 sm:w-34 border border-pink-100 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs transition z-0
               ${
                 selected.includes(songObj)
                   ? "bg-pink-400 text-white border border-pink-400"
