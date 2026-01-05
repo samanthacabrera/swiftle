@@ -6,7 +6,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex items-center w-screen bg-pink-400 relative">
+      <div className="flex items-center w-screen bg-pink-400">
         <div className="flex flex-col items-center w-full  py-2 text-center space-y-1 tracking-widest">
           <h1 className="title text-xl md:text-2xl lg:text-3xl font-bold">Swiftle</h1>
           <h6 className="text-center text-xs md:text-lg lg:text-xl ml-2">

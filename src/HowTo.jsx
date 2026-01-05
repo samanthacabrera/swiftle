@@ -33,7 +33,7 @@ const HowTo = ({ onClose }) => {
         </ul>
 
         <p className="text-xl text-center text-pink-400 font-bold my-4">Thanks for playing!</p>
-        <div className="flex md:flex-row justify-center items-center space-x-0 md:space-x-2 text-xs opacity-80">
+        <div className="flex md:flex-row justify-center items-center space-x-0 md:space-x-2 text-xs">
           <a href="mailto:samantha.n.cabrera@gmail.com?subject=Feedback for Swiftle" target="_blank" rel="noopener noreferrer" className="hover:italic">Feedack is welcome</a>
           <span className="px-1">|</span>
           <a href="https://samoontha.com" target="_blank" rel="noopener noreferrer" className="hover:italic">Made by Sam Cabrera</a>

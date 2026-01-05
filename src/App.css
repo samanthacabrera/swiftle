@@ -32,29 +32,18 @@ html {
 
 .btn {
   background: #ffffff;
-  color: #f56ca9;
+  color: #f472b6;
   border: none;
   padding: 0.75rem 1.8rem;
   border-radius: 1.7rem;
   letter-spacing: 0.06em;
-  box-shadow: 0 4px 0 #f35ea280;
+  box-shadow: 0 4px 0 #f472b6;
   transition: all 0.2s ease;
 }
 
 .btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 0 #f56ca9;
-}
-
-.btn:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 0 #f35ea280;
-}
-
-.btn:disabled {
-  opacity: 0.45;
-  transform: none;
-  box-shadow: 0 4px 0 #f35ea280;
+  box-shadow: 0 6px 0 #f472b6;
 }
 
 @keyframes board-shake {

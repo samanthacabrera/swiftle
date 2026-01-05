@@ -166,9 +166,9 @@ const Board = () => {
   return (
     <div className={`max-w-2xl mx-auto text-center p-8 ${shake ? "board-shake" : ""}`}>
       {gameOver && !gameWon && (
-        <div className="text-neutral-700 p-4">
-          <p className="text-lg mb-1">Game Over!</p>
-          <p className="mb-2">Here are the correct albums:</p>
+        <div className="text-pink-400">
+          <p className="text-lg">Game Over!</p>
+          <p className="mb-6">Here are the correct albums:</p>
         </div>
       )}
 
@@ -191,39 +191,41 @@ const Board = () => {
       )}
 
       {gameOver && !gameWon && (
-        <div className="my-4 p-4">
+        <div className="pt-6">
           <button onClick={handleRestart} className="btn">
             Restart Game
           </button>
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 my-2">
+      {!gameWon && !gameOver && (
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {songs.map((songObj) => (
           <button
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
             disabled={gameOver}
-            className={`h-24 w-full sm:h-28 sm:w-34 border border-pink-100 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs transition z-0
+            className={`h-24 w-full sm:h-28 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs uppercase transition z-0
               ${
                 selected.includes(songObj)
-                  ? "bg-pink-400 text-white border border-pink-400"
-                  : "bg-pink-100 text-neutral-700 hover:bg-pink-200 hover:border-white transition"
+                  ? "bg-pink-400 text-white"
+                  : "bg-pink-100 text-neutral-700 hover:bg-pink-200 transition"
               } ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {songObj.song}
           </button>
         ))}
       </div>
+      )}
 
-      {!gameWon && (
-        <p className="text-neutral-700 text-right">
+      {!gameWon && !gameOver && (
+        <p className="text-pink-400 text-right mt-1 mr-1">
           {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
         </p>
       )}
 
-      {!gameWon && (
-        <p className="text-neutral-700">
+      {!gameWon && !gameOver && (
+        <p className="text-pink-400">
           Mistakes Remaining:{" "}
           <span className="text-lg tracking-widest ml-4">
             {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
@@ -231,16 +233,18 @@ const Board = () => {
         </p>
       )}
 
-      {error && <p className="text-neutral-700 my-4">{error}</p>}
-
       <div className="flex flex-wrap gap-6 justify-center my-6">
-        {!gameWon && <button onClick={handleShuffle} disabled={gameOver} className="btn">Shuffle</button>}
-        {!gameWon && <button onClick={handleDeselect} disabled={gameOver} className="btn">Deselect All</button>}
-        {!gameWon && <button onClick={handleSubmitGroup} disabled={gameOver} className="btn">Submit</button>}
+        {!gameWon && !gameOver && <button onClick={handleShuffle} disabled={gameOver} className="btn">Shuffle</button>}
+        {!gameWon && !gameOver && <button onClick={handleDeselect} disabled={gameOver} className="btn">Deselect All</button>}
+        {!gameWon && !gameOver && <button onClick={handleSubmitGroup} disabled={gameOver} className="btn">Submit</button>}
       </div>
 
+      {!gameWon && !gameOver && error && (
+        <p className="text-pink-400">{error}</p>
+      )}
+
       {gameWon && (
-          <div className="text-neutral-700 space-y-4 mb-4">
+          <div className="text-pink-400 space-y-4 mb-4">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button
