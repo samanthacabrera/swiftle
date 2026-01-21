@@ -6,33 +6,32 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex items-center w-screen bg-pink-400">
-        <div className="flex flex-col items-center w-full  py-2 text-center space-y-1 tracking-widest">
-          <h1 className="title text-xl md:text-2xl lg:text-3xl font-bold">Swiftle</h1>
-          <h6 className="text-center text-xs md:text-lg lg:text-xl ml-2">
-            A game inspired by a love of Taylor Swift & NYT's{" "}
-            <a
-              href="https://www.nytimes.com/games/connections"
-              target="_blank"
-              className="hover:border-b-2 hover:border-dashed transition"
-            >
-              Connections
-            </a>
-          </h6>
-        </div>
-
-        <button
-          onClick={() => setShowModal(true)}
-          className="border border-white rounded-full text-white text-xs w-6 h-6 md:text-lg md:w-8 md:h-8 mr-1 md:mr-2 hover:scale-105 transition"
-          aria-label="How to Play"
-        >
-          ?
-        </button>
+      <div className="flex flex-col items-center justify-center w-full px-6 py-4 bg-pink-600/60 backdrop-blur-md rounded-2xl border border-white/30 shadow-lg text-center mx-auto mt-4 max-w-3xl">
+        <h1 className="title text-2xl md:text-3xl lg:text-4xl font-bold text-white drop-shadow-md">
+          Swiftle
+        </h1>
+        <h6 className="text-xs md:text-sm lg:text-base text-white/90 mt-1 drop-shadow-sm">
+          A game inspired by a love of Taylor Swift & NYT's{" "}
+          <a
+            href="https://www.nytimes.com/games/connections"
+            target="_blank"
+            className="hover:border-b-2 hover:border-dashed transition-colors"
+          >
+            Connections
+          </a>
+        </h6>
       </div>
 
-      {showModal && (
-        <HowTo onClose={() => setShowModal(false)} />
-      )}
+      {/* How-to */}
+      <button
+        onClick={() => setShowModal(true)}
+        className="absolute top-6 right-6 btn"
+        aria-label="How to Play"
+      >
+        ?
+      </button>
+
+      {showModal && <HowTo onClose={() => setShowModal(false)} />}
     </>
   );
 };

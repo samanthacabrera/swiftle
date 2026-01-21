@@ -10,20 +10,7 @@ html {
   padding: 0;
   font-family: "Gabarito", sans-serif;
   color: whitesmoke;
-  background-color: hsl(319, 85%, 90%);
-  background-image: repeating-linear-gradient(
-      rgba(238, 192, 213, 0.118) 0px,
-      rgba(255, 255, 255, 0.474) 1px,
-      transparent 4px,
-      transparent 2px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      #f3729f22 0px,
-      rgba(255, 255, 255, 0.249) 1px,
-      transparent 2px,
-      transparent 4px
-    );
+  background-color: hsl(316, 63%, 89%);
 }
 
 .title {
@@ -31,19 +18,66 @@ html {
 }
 
 .btn {
-  background: #ffffff;
-  color: #f472b6;
-  border: none;
-  padding: 0.75rem 1.8rem;
-  border-radius: 1.7rem;
-  letter-spacing: 0.06em;
-  box-shadow: 0 4px 0 #f472b6;
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 0.5em 1em;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: #e759a2cb;
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 0 #f472b6;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 30px rgba(244, 114, 182, 0.9);
+  border: 1px solid #f472b579;
+}
+.song-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  color: #51444d;
+  cursor: pointer;
+}
+
+.song-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.song-card.selected {
+  background: #db277780;
+  color: #ffffff;
+  border: 1px solid #f472b6;
+  box-shadow: 0 8px 25px rgba(244, 114, 182, 0.6);
+  transform: scale(1.05);
+}
+
+.mistake-counter {
+  @apply flex items-center justify-center gap-2 p-3 rounded-xl text-lg font-bold transition-all duration-300;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mistake-counter span {
+  @apply w-5 h-5 rounded-full transition-all duration-300;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.mistake-counter .mistake-dot {
+  background: rgba(244, 114, 182, 0.9);
+  box-shadow: 0 0 6px rgba(244, 114, 182, 0.6);
+}
+
+.mistake-counter .remaining-dot {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 @keyframes board-shake {

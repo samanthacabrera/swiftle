@@ -165,19 +165,24 @@ const Board = () => {
 
   return (
     <div className={`max-w-2xl mx-auto text-center p-8 ${shake ? "board-shake" : ""}`}>
+      {/* Game Lost */}
       {gameOver && !gameWon && (
-        <div className="text-pink-400">
+        <div className="text-pink-600/50">
           <p className="text-lg">Game Over!</p>
-          <p className="mb-6">Here are the correct albums:</p>
+          <button onClick={handleRestart} className="btn my-4">
+            Restart Game
+          </button>
+          <p className="my-4">Here are the correct albums:</p>
         </div>
       )}
-
+      
+      {/* Correct Groups */}
       {groups.length > 0 && (
-        <div className="grid gap-4 grid-cols-1">
+        <div className="grid gap-4 grid-cols-1 mb-4">
           {groups.map((group, index) => (
             <div
               key={index}
-              className={`${index === animateGroup ? "correct-appear" : "" } rounded-lg p-4 shadow-sm text-pink-400 bg-pink-50`}
+              className={`${index === animateGroup ? "correct-appear" : "" } rounded-lg p-4 shadow-sm text-pink-600/60 bg-pink-50`}
             >
               <p className="font-semibold mb-2">{group.album}</p>
               <ul className="text-sm text-left">
@@ -190,27 +195,17 @@ const Board = () => {
         </div>
       )}
 
-      {gameOver && !gameWon && (
-        <div className="pt-6">
-          <button onClick={handleRestart} className="btn">
-            Restart Game
-          </button>
-        </div>
-      )}
-
+      {/* Board */}
       {!gameWon && !gameOver && (
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {songs.map((songObj) => (
           <button
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
             disabled={gameOver}
-            className={`h-24 w-full sm:h-28 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs uppercase transition z-0
-              ${
-                selected.includes(songObj)
-                  ? "bg-pink-400 text-white"
-                  : "bg-pink-100 text-neutral-700 hover:bg-pink-200 transition"
-              } ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`song-card h-24 w-full sm:h-28 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs uppercase transition z-0
+                ${selected.includes(songObj) ? "selected" : ""} 
+                ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {songObj.song}
           </button>
@@ -218,33 +213,40 @@ const Board = () => {
       </div>
       )}
 
+      {/* Timer */}
       {!gameWon && !gameOver && (
-        <p className="text-pink-400 text-right mt-1 mr-1">
+        <p className="text-pink-600/60 text-right mt-1 mr-1">
           {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
         </p>
       )}
 
+      {/* Error Message */}
+      {!gameWon && !gameOver && error && (
+        <p className="text-pink-600/60">{error}</p>
+      )}
+
+      {/* Mistake Counter  */}
       {!gameWon && !gameOver && (
-        <p className="text-pink-400">
-          Mistakes Remaining:{" "}
-          <span className="text-lg tracking-widest ml-4">
-            {"●".repeat(maxMistakes - mistakes) + "○".repeat(mistakes)}
-          </span>
+        <p className="mistake-counter mt-4 mx-auto w-fit">
+          {Array.from({ length: maxMistakes }).map((_, idx) => (
+            <span
+              key={idx}
+              className={idx < mistakes ? "mistake-dot" : "remaining-dot"}
+            />
+          ))}
         </p>
       )}
 
+      {/* Buttons */}
       <div className="flex flex-wrap gap-6 justify-center my-6">
         {!gameWon && !gameOver && <button onClick={handleShuffle} disabled={gameOver} className="btn">Shuffle</button>}
         {!gameWon && !gameOver && <button onClick={handleDeselect} disabled={gameOver} className="btn">Deselect All</button>}
         {!gameWon && !gameOver && <button onClick={handleSubmitGroup} disabled={gameOver} className="btn">Submit</button>}
       </div>
-
-      {!gameWon && !gameOver && error && (
-        <p className="text-pink-400">{error}</p>
-      )}
-
+      
+      {/* Game Won */}
       {gameWon && (
-          <div className="text-pink-400 space-y-4 mb-4">
+          <div className="text-pink-600/60 space-y-4 mb-4">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button
@@ -260,3 +262,4 @@ const Board = () => {
 };
 
 export default Board;
+
