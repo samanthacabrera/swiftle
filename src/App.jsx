@@ -3,11 +3,11 @@ import Board from "./Board";
 
 function App() {
   return (
-    <>
-    <Header/>
-    <Board/>
-    </>
-  )
+    <div className="mx-4">
+      <Header />
+      <Board />
+    </div>
+  );
 }
 
 export default App

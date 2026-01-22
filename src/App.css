@@ -18,22 +18,28 @@ html {
 }
 
 .btn {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  padding: 0.5em 1em;
-  border-radius: 2rem;
+  background: rgba(244, 57, 150, 0.6);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  padding: 0.5em 1.2em;
+  border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+  font-weight: 500;
+  font-size: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
-  color: #e759a2cb;
 }
 
 .btn:hover {
-  transform: scale(1.05);
-  box-shadow: 2px 2px 30px rgba(244, 114, 182, 0.9);
-  border: 1px solid #f472b579;
+  transform: scale(1.08);
+  box-shadow:
+    0 0 25px 6px rgba(255, 105, 180, 0.6),
+    0 4px 20px rgba(255, 105, 180, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #ffffff;
 }
+
 .song-card {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -41,13 +47,13 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  color: #51444d;
+  color: rgba(213, 55, 134, 0.7);
   cursor: pointer;
 }
 
 .song-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 30px rgba(248, 246, 246, 0.2);
 }
 
 .song-card.selected {
@@ -59,11 +65,11 @@ html {
 }
 
 .mistake-counter {
-  @apply flex items-center justify-center gap-2 p-3 rounded-xl text-lg font-bold transition-all duration-300;
+  @apply flex items-center justify-center gap-2 p-2 rounded-xl font-bold transition-all duration-300;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 10px rgba(244, 114, 182, 0.6);
 }
 
 .mistake-counter span {

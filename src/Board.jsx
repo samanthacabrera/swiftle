@@ -164,21 +164,21 @@ const Board = () => {
   };
 
   return (
-    <div className={`max-w-2xl mx-auto text-center p-8 ${shake ? "board-shake" : ""}`}>
+    <div className={`max-w-2xl mx-auto text-center ${shake ? "board-shake" : ""}`}>
       {/* Game Lost */}
       {gameOver && !gameWon && (
         <div className="text-pink-600/50">
-          <p className="text-lg">Game Over!</p>
+          <p className="text-lg mt-4">Game Over!</p>
           <button onClick={handleRestart} className="btn my-4">
             Restart Game
           </button>
-          <p className="my-4">Here are the correct albums:</p>
+          <p className="mb-4">Here are the correct albums:</p>
         </div>
       )}
       
       {/* Correct Groups */}
       {groups.length > 0 && (
-        <div className="grid gap-4 grid-cols-1 mb-4">
+        <div className="grid gap-4 grid-cols-1 mt-6">
           {groups.map((group, index) => (
             <div
               key={index}
@@ -195,6 +195,11 @@ const Board = () => {
         </div>
       )}
 
+      {/* Error Message */}
+      <p className="my-2 text-center text-pink-600/60">
+        {!gameWon && !gameOver && error ? error : "\u00A0"}
+      </p>
+      
       {/* Board */}
       {!gameWon && !gameOver && (
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -203,8 +208,8 @@ const Board = () => {
             key={songObj.song}
             onClick={() => toggleSelect(songObj)}
             disabled={gameOver}
-            className={`song-card h-24 w-full sm:h-28 sm:w-34 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs uppercase transition z-0
-                ${selected.includes(songObj) ? "selected" : ""} 
+            className={`song-card h-12 w-full sm:h-20 flex justify-center items-center flex-wrap rounded-md relative cursor-pointer select-none p-2 text-xs uppercase transition z-0
+                ${selected.includes(songObj) ? "selected" : ""}
                 ${gameOver ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             {songObj.song}
@@ -213,28 +218,29 @@ const Board = () => {
       </div>
       )}
 
-      {/* Timer */}
-      {!gameWon && !gameOver && (
-        <p className="text-pink-600/60 text-right mt-1 mr-1">
-          {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
-        </p>
-      )}
-
-      {/* Error Message */}
-      {!gameWon && !gameOver && error && (
-        <p className="text-pink-600/60">{error}</p>
-      )}
-
       {/* Mistake Counter  */}
       {!gameWon && !gameOver && (
-        <p className="mistake-counter mt-4 mx-auto w-fit">
-          {Array.from({ length: maxMistakes }).map((_, idx) => (
-            <span
-              key={idx}
-              className={idx < mistakes ? "mistake-dot" : "remaining-dot"}
-            />
-          ))}
-        </p>
+        <div className="my-4 flex items-center justify-center w-full relative">
+          <div className="flex items-center text-center"> 
+            <span className="text-pink-500/70 mx-2">
+              Mistakes:
+            </span>
+            <p className="mistake-counter w-fit flex gap-1">
+              {Array.from({ length: maxMistakes }).map((_, idx) => (
+                <span
+                  key={idx}
+                  className={idx < mistakes ? "mistake-dot" : "remaining-dot"}
+                />
+              ))}
+            </p>
+          </div>
+          {/* Timer */}
+          {!gameWon && !gameOver && (
+            <p className="text-pink-600/60 self-center absolute right-0">
+              {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
+            </p>
+          )}
+        </div>
       )}
 
       {/* Buttons */}
@@ -246,7 +252,7 @@ const Board = () => {
       
       {/* Game Won */}
       {gameWon && (
-          <div className="text-pink-600/60 space-y-4 mb-4">
+          <div className="text-pink-600/60 space-y-4 -mt-12 pb-6">
             <p className="text-lg">Congratulations!</p>
             <p>You matched all the songs to the correct album in {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")} minutes.</p>
             <button

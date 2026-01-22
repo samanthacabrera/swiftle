@@ -8,8 +8,11 @@ const HowTo = ({ onClose }) => {
     };
   }, []);
   return (
-    <div className="fixed inset-0 bg-white bg-opacity-30 flex items-center justify-center z-50">
-      <div className="bg-white/30 backdrop-blur-lg border border-white/70 rounded-xl shadow-xl p-6 max-w-md w-full relative text-neutral-600/90 tracking-wide">
+    <div
+      className="fixed inset-0 bg-pink-200 bg-opacity-30 flex items-center justify-center z-50"
+      onClick={onClose}
+    >
+      <div className="bg-white/30 backdrop-blur-lg border border-white/70 rounded-xl shadow-2xl p-6 max-w-md w-full relative text-neutral-600/90 tracking-wide">
         <button
           onClick={onClose}
           className="absolute top-2 right-4 text-4xl text-pink-600/60 hover:scale-110 transition"
