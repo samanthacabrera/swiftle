@@ -32,7 +32,7 @@ const getInitialSongs = () => {
   return shuffleArray(selectedSongs);
 };
 
-const Board = () => {
+const Board = ({ time, setTime }) => {
   const [songs, setSongs] = useState([]);
   const [initialSongs, setInitialSongs] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -42,8 +42,6 @@ const Board = () => {
   const [shake, setShake] = useState(false);
   const [almostDone, setAlmostDone] = useState(false);
   const [animateGroup, setAnimateGroup] = useState(null);
-  const [time, setTime] = useState(0); 
-  const timerRef = useRef(null);
   const [gameWon, setGameWon] = useState(false);
   const maxMistakes = 4;
   const gameOver = mistakes >= maxMistakes;
@@ -51,12 +49,13 @@ const Board = () => {
   useEffect(() => {
     const gameSongs = getInitialSongs();
     setSongs(gameSongs);
-    setInitialSongs(gameSongs); 
-    timerRef.current = setInterval(() => {
+    setInitialSongs(gameSongs);
+
+    const interval = setInterval(() => {
       setTime((prev) => prev + 1);
     }, 1000);
 
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(interval);
   }, []);
 
     useEffect(() => {
@@ -138,13 +137,11 @@ const Board = () => {
     setGroups([]);
     setError("");
     setMistakes(0);
-    setTime(0);
     setGameWon(false);
 
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setTime((prev) => prev + 1);
-    }, 1000);
+   const interval = setInterval(() => {
+  setTime((prev) => prev + 1);
+}, 1000);
   };
   
   const revealRemainingGroups = () => {
@@ -234,12 +231,6 @@ const Board = () => {
               ))}
             </p>
           </div>
-          {/* Timer */}
-          {!gameWon && !gameOver && (
-            <p className="text-pink-600/60 self-center absolute right-0">
-              {Math.floor(time / 60)}:{String(time % 60).padStart(2, "0")}
-            </p>
-          )}
         </div>
       )}
 
